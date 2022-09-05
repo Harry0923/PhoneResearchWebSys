@@ -1,0 +1,71 @@
+<div class="w-sceen h-screen">
+  <div class="flex justify-center">
+    <input class="w-2/5 h-8 mt-10 mr-4 md:h-16 font-bold text-2xl form-control" type="text" name="search"
+      placeholder="關鍵字查詢:"  [(ngModel)] = "searchText" (ngModelChange)="onSearchTextChange()" />
+    <img class="w-8 h-8 mt-10 md:w-16 md:h-16 mb-6" src="../../assets/Vector.png">
+  </div>
+  <div *ngIf="filteredPhoneList.length > 3 || filteredPhoneList.length ===0  ; else card">
+    <kendo-grid [kendoGridBinding]="filteredPhoneList" [pageSize]="10" [pageable]="true" [sortable]="true"
+      [filterable]="true" [groupable]="true" kendoGridSelectBy [kendoGridExpandDetailsBy]="'PHONE_ID'"
+      [(expandedDetailKeys)]="expandedDetailKeys" [trackBy]="trackBy">
+      <ng-template kendoGridToolbarTemplate>
+        <button kendoGridPDFCommand icon="file-pdf">Export to PDF</button>
+        <button kendoGridExcelCommand icon="file-excel">Export to Excel</button>
+      </ng-template>
+      <kendo-grid-column title="姓名" field="USER_NAME"></kendo-grid-column>
+      <kendo-grid-column title="分機號碼" field="INPHONE"></kendo-grid-column>
+      <kendo-grid-column title="單位" field="FOLDER_NAME"></kendo-grid-column>
+      <kendo-grid-column title="分類" field="CATEGORY_NAME"></kendo-grid-column>
+      <kendo-grid-column title="職務內容" field="NAME"></kendo-grid-column>
+      <kendo-grid-pdf fileName="Phone.pdf" [allPages]="true" paperSize="A4" [repeatHeaders]="true"
+    [landscape]="true">
+    <kendo-grid-pdf-margin top="2cm" left="1cm" right="1cm" bottom="2cm"></kendo-grid-pdf-margin>
+      <ng-template kendoGridPDFTemplate let-pageNum="pageNum" let-totalPages="totalPages">
+        <div class="page-template">
+          <div class="header">
+            <div style="float:right">Page {{pageNum}} of {{totalPages}}</div>
+          </div>
+            <div class="footer">
+              Page {{pageNum}} of {{totalPages}}
+            </div>
+          </div>
+        </ng-template>
+      </kendo-grid-pdf>
+      <kendo-grid-excel fileName="Phone.xlsx"></kendo-grid-excel>
+      <ng-template kendoGridDetailTemplate let-dataItem>
+          <p><strong>直播號碼:</strong> {{dataItem.OUTPHONE}}</p>
+          <p><strong>備註:</strong> {{dataItem.NOTE}}</p>
+          <p><strong>常用信箱:</strong> {{dataItem.OUTEMAIL}}</p>
+      </ng-template>
+      <ng-template kendoGridNoRecordsTemplate>
+        <div>
+            <kendo-badge-container>
+                <kendo-icon name="cloud" size="large"></kendo-icon>
+                <kendo-badge position="inside" themeColor="error">
+                    <kendo-icon name="close"></kendo-icon>
+                </kendo-badge>
+            </kendo-badge-container>
+        </div>
+        <p>There is no data to display.</p>
+    </ng-template>
+    </kendo-grid>
+  </div>
+  <div >
+    <ng-template #card>
+      <div class="flex justify-center">
+      <kendo-card class="bg-blue-200 text-2xl inline-block ml-12 w-96 h-96 font-black" *ngFor="let phone of filteredPhoneList | filter:searchText">
+        <kendo-card-body>
+          <a>姓名: {{phone.USER_NAME}}</a>
+          <h2>單位: {{phone.FOLDER_NAME}}</h2>
+          <h4>分類:{{phone.CATEGORY_NAME}}</h4>
+          <h4>職務內容: {{phone.NAME}}</h4>
+          <h4>分機號碼: {{phone.INPHONE}}</h4>
+          <h4>直播號碼: {{phone.OUTPHONE}}</h4>
+          <h4>備註: {{phone.NOTE}}</h4>
+          <h4>常用信箱:{{phone.OUTMAIL}}</h4>
+        </kendo-card-body>
+      </kendo-card>
+    </div>
+    </ng-template>
+  </div>
+</div>

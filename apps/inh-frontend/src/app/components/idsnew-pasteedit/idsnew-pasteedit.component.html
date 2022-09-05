@@ -1,0 +1,37 @@
+<div class="bg-blue-600 text-white text-2xl p-2">編輯貼上呼吸切帳資料</div>
+<kendo-grid [kendoGridReactiveEditing]="createFormGroup" [kendoGridBinding]="pasteData">
+  <!--整批資料處理按鈕-->
+  <!--20220812 yunteng: 添加註解說明-->
+  <ng-template kendoGridToolbarTemplate>
+    <button kendoButton (click)="onUploadData()">上傳資料</button>
+  </ng-template>
+  <!--資料列欄位-->
+  <!--20220812 yunteng: 添加註解說明-->
+  <kendo-grid-column field="APPLY_YYMM" title="申報年月"></kendo-grid-column>
+  <kendo-grid-column field="CASENO" title="住院序號"></kendo-grid-column>
+  <kendo-grid-column field="APPLY_ST_DATE" title="申報起日"></kendo-grid-column>
+  <kendo-grid-column field="APPLY_END_DATE" title="申報迄日"></kendo-grid-column>
+  <kendo-grid-column field="FINCNT" title="身分分段"></kendo-grid-column>
+  <kendo-grid-column field="CASE_TYPE" title="案件分類"></kendo-grid-column>
+  <kendo-grid-column field="SEQNO" title="流水號"></kendo-grid-column>
+  <kendo-grid-column field="LAST_UPDATED_DATE" title="異動日期"></kendo-grid-column>
+  <kendo-grid-column field="LAST_UPDATED_ID" title="異動人員"></kendo-grid-column>
+  <kendo-grid-column field="IDS_TYPE" title="呼吸照護分類"></kendo-grid-column>
+  <kendo-grid-column field="REC_STATUS" title="註記"></kendo-grid-column>
+  <kendo-grid-column field="HFINANCIAL" title="身份"></kendo-grid-column>
+  <kendo-grid-column field="CHART_NO" title="病歷號"></kendo-grid-column>
+  <kendo-grid-column field="IDS_COUNT" title="呼吸照護天數"></kendo-grid-column>
+  <kendo-grid-column field="BED_STATUS" title="病床是否滿床"></kendo-grid-column>
+  <!--資料操作按鈕-->
+  <!--20220812 yunteng: 添加註解說明-->
+  <kendo-grid-command-column title="操作變更" [width]="220">
+    <ng-template kendoGridCellTemplate>
+      <button kendoGridEditCommand [primary]="true">編輯</button>
+      <button kendoGridRemoveCommand>Remove</button>
+      <button kendoGridSaveCommand [disabled]="isFormValid">變更資料</button>
+      <button kendoGridCancelCommand>取消變更</button>
+    </ng-template>
+  </kendo-grid-command-column>
+</kendo-grid>
+
+

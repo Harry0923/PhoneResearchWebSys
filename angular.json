@@ -1,0 +1,10 @@
+{
+  "$schema": "./node_modules/nx/schemas/workspace-schema.json",
+  "version": 2,
+  "projects": {
+    "inh-frontend": "apps/inh-frontend",
+    "inh-frontend-e2e": "apps/inh-frontend-e2e",
+    "phone-frontend": "apps/phone-frontend",
+    "phone-frontend-e2e": "apps/phone-frontend-e2e"
+  }
+}

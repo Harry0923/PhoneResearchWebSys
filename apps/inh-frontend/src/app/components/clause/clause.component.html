@@ -1,0 +1,45 @@
+<hr>
+<form [formGroup]="clauseFormGroup">
+  <div>
+    參考就醫序號：02218821、03618308
+  </div>
+  <hr>
+  <div class="grid grid-cols-4">
+    <div class="flex mt-1">
+      <div class="input-label">病歷號</div>
+      <div>
+        <input type="text" class="input-content" formControlName="Chart_No" placeholder="病歷號" />
+      </div>
+    </div>
+    <div class="flex mt-1">
+      <div class="input-label">申報年月</div>
+      <div>
+        <input type="text" class="input-content" formControlName="ApplyYYMM" placeholder="申報年月" />
+      </div>
+    </div>
+    <div class="flex mt-1">
+      <div class="input-label">住院序號</div>
+      <div>
+        <input type="text" class="input-content" formControlName="Caseno" placeholder="住院序號" />
+      </div>
+    </div>
+    <div class="flex mt-1">
+      <div class="input-label">身分證號</div>
+      <div>
+        <input type="text" class="input-content" formControlName="Id_No" placeholder="身分證號" />
+      </div>
+    </div>
+    <div class="flex mt-1">
+      <button kendoButton [primary]="true" (click)="changeCaseData()">
+        確定
+      </button>
+    </div>
+  </div>
+</form>
+
+<hr>
+<div>
+  測試用呈現選項--當前條件資料<br>
+  住院序號  {{ caseno }}  身分證號  {{ id_no }}  病歷號  {{ chart_no }}  申報年月  {{ apply_yymm }}
+</div>
+<hr>

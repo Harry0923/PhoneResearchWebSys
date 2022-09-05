@@ -1,0 +1,107 @@
+{
+  "projectType": "application",
+  "sourceRoot": "apps/phone-frontend/src",
+  "prefix": "vghtc",
+  "targets": {
+    "build": {
+      "executor": "@angular-devkit/build-angular:browser",
+      "outputs": [
+        "{options.outputPath}"
+      ],
+      "options": {
+        "outputPath": "dist/apps/phone-frontend",
+        "index": "apps/phone-frontend/src/index.html",
+        "main": "apps/phone-frontend/src/main.ts",
+        "polyfills": "apps/phone-frontend/src/polyfills.ts",
+        "tsConfig": "apps/phone-frontend/tsconfig.app.json",
+        "inlineStyleLanguage": "scss",
+        "assets": [
+          "apps/phone-frontend/src/favicon.ico",
+          "apps/phone-frontend/src/assets"
+        ],
+        "styles": [
+          {
+            "input": "node_modules/@progress/kendo-theme-default/dist/all.css"
+          },
+          "apps/phone-frontend/src/styles.scss"
+        ],
+        "scripts": []
+      },
+      "configurations": {
+        "production": {
+          "budgets": [
+            {
+              "type": "initial",
+              "maximumWarning": "500kb",
+              "maximumError": "1mb"
+            },
+            {
+              "type": "anyComponentStyle",
+              "maximumWarning": "2kb",
+              "maximumError": "4kb"
+            }
+          ],
+          "fileReplacements": [
+            {
+              "replace": "apps/phone-frontend/src/environments/environment.ts",
+              "with": "apps/phone-frontend/src/environments/environment.prod.ts"
+            }
+          ],
+          "outputHashing": "all"
+        },
+        "development": {
+          "buildOptimizer": false,
+          "optimization": false,
+          "vendorChunk": true,
+          "extractLicenses": false,
+          "sourceMap": true,
+          "namedChunks": true
+        }
+      },
+      "defaultConfiguration": "production"
+    },
+    "serve": {
+      "executor": "@angular-devkit/build-angular:dev-server",
+      "configurations": {
+        "production": {
+          "browserTarget": "phone-frontend:build:production"
+        },
+        "development": {
+          "browserTarget": "phone-frontend:build:development"
+        }
+      },
+      "defaultConfiguration": "development"
+    },
+    "extract-i18n": {
+      "executor": "@angular-devkit/build-angular:extract-i18n",
+      "options": {
+        "browserTarget": "phone-frontend:build"
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "options": {
+        "lintFilePatterns": [
+          "apps/phone-frontend/**/*.ts",
+          "apps/phone-frontend/**/*.html"
+        ]
+      }
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": [
+        "coverage/apps/phone-frontend"
+      ],
+      "options": {
+        "jestConfig": "apps/phone-frontend/jest.config.ts",
+        "passWithNoTests": true,
+        "styles": [
+          {
+            "input": "node_modules/@progress/kendo-theme-default/dist/all.css"
+          }
+        ]
+      }
+    }
+  },
+  "tags": []
+}

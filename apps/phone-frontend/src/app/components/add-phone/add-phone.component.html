@@ -1,0 +1,70 @@
+<kendo-grid [kendoGridReactiveEditing]="createFormGroup" [kendoGridBinding]="phoneList" [sortable]="true"
+  [filterable]="true" [pageable]="true" [pageSize]="10" (save)="saveHandler($event)" (remove)="removeHandler($event)">
+  <ng-template kendoGridToolbarTemplate>
+    <button kendoGridAddCommand (click)="createFormGroup" class=" bg-blue-500 border-blue-500 text-white">新增</button>
+    <!-- <button kendoGridAddCommand (click)="createFormGroup" class=" bg-blue-500 border-blue-500 text-white">增刪使用者</button> -->
+  </ng-template>
+
+  <kendo-grid-column field="PHONE_ID" title="電話 ID"  class=""></kendo-grid-column>
+  <!-- <kendo-grid-column field="phoneFolder.FOLDER_ID" title="目錄 ID"></kendo-grid-column>
+  <kendo-grid-column field="phoneFolder.FOLDER_NAME" title="目錄名稱"></kendo-grid-column> -->
+  <kendo-grid-column field="FOLDER_ID" title="目錄(單位)">
+    <ng-template kendoGridEditTemplate let-dataItem="dataItem" let-formGroup="formGroup">
+      <kendo-dropdownlist [data]="phoneFolderList" textField="FOLDER_NAME" valueField="FOLDER_ID"
+        [valuePrimitive]="true" [formControl]="formGroup.get('FOLDER_ID')">
+      </kendo-dropdownlist>
+    </ng-template>
+    <ng-template kendoGridCellTemplate let-dataItem>
+      {{getFolder(dataItem.FOLDER_ID)?.FOLDER_NAME}}
+    </ng-template>
+  </kendo-grid-column>
+  <kendo-grid-column field="INPHONE" title="院內分機"></kendo-grid-column>
+
+  <!-- <kendo-grid-column field="phoneCategory.CATEGORY_ID" title="分類 ID"></kendo-grid-column>
+  <kendo-grid-column field="phoneCategory.NAME" title="分類名稱"></kendo-grid-column> -->
+  <kendo-grid-column field="CATEGORY_ID" title="分類">
+    <ng-template kendoGridEditTemplate let-dataItem="dataItem" let-formGroup="formGroup">
+      <kendo-dropdownlist [data]="phoneCategoryList" textField="NAME" valueField="CATEGORY_ID" [valuePrimitive]="true"
+        [formControl]="formGroup.get('CATEGORY_ID')">
+      </kendo-dropdownlist>
+    </ng-template>
+    <ng-template kendoGridCellTemplate let-dataItem>
+      {{getCategory(dataItem.CATEGORY_ID)?.NAME}}
+    </ng-template>
+  </kendo-grid-column>
+
+  <kendo-grid-column field="NAME" title="電話名稱"></kendo-grid-column>
+  <kendo-grid-column field="OUTPHONE" title="院外直撥電話"></kendo-grid-column>
+  <kendo-grid-column field="NOTE" title="備註"></kendo-grid-column>
+
+  <kendo-grid-command-column>
+    <ng-template kendoGridCellTemplate let-isNew="isNew" >
+      <div class="flex justify-center ">
+        <button kendoGridEditCommand [primary]="true" class=" bg-blue-500 border-blue-500 text-white">編輯</button>
+        <button kendoGridRemoveCommand class=" bg-red-400 border-red-400 text-white">移除</button>
+      <button kendoGridSaveCommand [disabled]="formGroup?.invalid!">儲存</button>
+      <button kendoGridCancelCommand>取消</button>
+      </div>
+
+    </ng-template>
+  </kendo-grid-command-column>
+</kendo-grid>
+
+<kendo-dialog  *ngIf="openDialog" (close)="closeDialog()" [minWidth]="250" [width]="450">
+  <p class="flex text-center m-10">
+    {{information}}
+  </p>
+  <kendo-dialog-actions>
+    <button kendoButton (click)="closeDialog()">確認</button>
+  </kendo-dialog-actions>
+</kendo-dialog>
+<!-- <kendo-dialog  title="Please confirm..." *ngIf="itemToRemove" (close)="confirmRemove(false)" >
+  <p class="flex text-center m-10">
+    請確認是否要刪除?
+  </p>
+  <kendo-dialog-actions>
+    <button kendoButton (click)="confirmRemove(false)">否</button>
+    <button kendoButton themeColor="primary" (click)="confirmRemove(true)" [primary]="true">是</button>
+  </kendo-dialog-actions>
+</kendo-dialog> -->
+

@@ -1,0 +1,54 @@
+<kendo-grid [kendoGridReactiveEditing]="createFormGroup" [kendoGridBinding]="phoneUserList" [sortable]="true"
+  [filterable]="true" [pageable]="true" [pageSize]="10" (edit)="editHandler($event)" (save)="saveHandler($event)"
+  (remove)="removeHandler($event)">
+  <ng-template kendoGridToolbarTemplate>
+    <button kendoGridAddCommand (click)="createFormGroup" class=" bg-blue-500 border-blue-500 text-white">新增</button>
+  </ng-template>
+
+  <kendo-grid-column title="目錄（單位）">
+    <ng-template kendoGridCellTemplate let-dataItem>
+      {{getFolder(getPhone(dataItem.PHONE_ID)?.FOLDER_ID)?.FOLDER_NAME}}
+    </ng-template>
+    <ng-template kendoGridEditTemplate let-dataItem="dataItem" let-formGroup="formGroup">
+      <input type="text" name="searchText" [(ngModel)]="searchText" (ngModelChange)="onSearchTextChange()" />
+      <kendo-dropdownlist [data]="filteredPhoneFolderList" textField="FOLDER_NAME" valueField="FOLDER_ID"
+        [valuePrimitive]="true" [(ngModel)]="selectedFolderId" (valueChange)="handleFolderChange($event)">
+      </kendo-dropdownlist>
+    </ng-template>
+  </kendo-grid-column>
+
+  <kendo-grid-column title="院內分機">
+    <ng-template kendoGridCellTemplate let-dataItem>
+      {{getPhone(dataItem.PHONE_ID)?.INPHONE}}
+    </ng-template>
+    <ng-template kendoGridEditTemplate let-dataItem="dataItem" let-formGroup="formGroup">
+      <kendo-dropdownlist [data]="filteredPhoneList" textField="INPHONE" valueField="PHONE_ID" [valuePrimitive]="true"
+        [formControl]="formGroup.get('PHONE_ID')">
+      </kendo-dropdownlist>
+    </ng-template>
+  </kendo-grid-column>
+
+  <kendo-grid-column field="USER_ID" title="身分證字號"></kendo-grid-column>
+  <kendo-grid-column field="USER_NAME" title="使用者姓名"></kendo-grid-column>
+  <kendo-grid-column field="OUTEMAIL" title="常用信箱"></kendo-grid-column>
+
+  <kendo-grid-command-column>
+    <ng-template kendoGridCellTemplate let-isNew="isNew">
+      <div class="flex justify-center ">
+        <button kendoGridEditCommand [primary]="true"  class=" bg-blue-500 border-blue-500 text-white">編輯</button>
+        <button kendoGridRemoveCommand class=" bg-red-400 border-red-400 text-white">移除</button>
+        <button kendoGridSaveCommand [disabled]="formGroup?.invalid!">儲存</button>
+        <button kendoGridCancelCommand>取消</button>
+      </div>
+    </ng-template>
+
+  </kendo-grid-command-column>
+</kendo-grid>
+<kendo-dialog  *ngIf="openDialog" (close)="closeDialog()" [minWidth]="250" [width]="450">
+  <p class="flex text-center m-10">
+    {{information}}
+  </p>
+  <kendo-dialog-actions>
+    <button kendoButton (click)="closeDialog()">確認</button>
+  </kendo-dialog-actions>
+</kendo-dialog>

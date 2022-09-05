@@ -1,0 +1,12 @@
+{
+  "/PhoneBackend": {
+    "target": "http://172.22.94.67",
+    "secure": false,
+    "changeOrigin": true
+  },
+  "/InhBackend": {
+    "target": "http://localhost:8080",
+    "secure": false,
+    "changeOrigin": true
+  }
+}

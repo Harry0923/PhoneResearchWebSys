@@ -1,0 +1,15 @@
+<!---->
+<!--20220812 yunteng: 添加註解說明-->
+<button kendoButton (click)="toPasteData()">從excel貼上資料</button>
+<button kendoButton (click)="toPasteEdit()">編輯剛送出的資料</button>
+<vghtc-idsnew-paste *ngIf="isPaste" (newData) = "getPasteData($event)" ></vghtc-idsnew-paste>
+<vghtc-idsnew-pasteedit *ngIf="!isPaste" [pasteData] = "data"></vghtc-idsnew-pasteedit>
+
+
+<!--瀏覽個案資料+個案資料單筆刪除-->
+<!--20220812 yunteng: 添加註解說明-->
+<button kendoButton (click)="toViewData()">確認資料</button>
+<div *ngIf="isViewEdit">
+  <vghtc-idsnew-viewremove></vghtc-idsnew-viewremove>
+</div>
+

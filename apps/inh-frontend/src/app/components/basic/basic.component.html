@@ -1,0 +1,34 @@
+<div class="bg-blue-600 text-white text-2xl p-2">申報主檔清單</div>
+<kendo-grid [kendoGridBinding]="dataList" [pageSize]="10" [pageable]="true"
+[sortable]="true" [filterable]="true"[groupable]="false">
+  <kendo-grid-column field="APPLY_YYMM" title="申報年月"></kendo-grid-column>
+  <kendo-grid-column field="CASENO" title="住院序號"></kendo-grid-column>
+  <kendo-grid-column field="CHART_NO" title="病歷號"></kendo-grid-column>
+  <kendo-grid-column field="PT_NAME" title="姓名"></kendo-grid-column>
+  <kendo-grid-column field="CASE_TYPE" title="案件"></kendo-grid-column>
+  <kendo-grid-column field="APPLY_SEQ" title="申報序號"></kendo-grid-column>
+  <kendo-grid-column field="APPLY_ST_DATE" title="申報起日">
+    <ng-template kendoGridCellTemplate let-dataItem>
+      {{dataItem.APPLY_ST_DATE | date: 'yyyy/MM/dd hh:mm:ss'}}
+    </ng-template>
+  </kendo-grid-column>
+  <kendo-grid-column field="APPLY_END_DATE" title="申報迄日">
+    <ng-template kendoGridCellTemplate let-dataItem>
+      {{dataItem.APPLY_END_DATE | date: 'yyyy/MM/dd hh:mm:ss'}}
+    </ng-template>
+  </kendo-grid-column>
+  <kendo-grid-column field="ADMIT_DATE" title="入院日">
+    <ng-template kendoGridCellTemplate let-dataItem>
+      {{dataItem.ADMIT_DATE | date: 'yyyy/MM/dd hh:mm:ss'}}
+    </ng-template>
+  </kendo-grid-column>
+  <kendo-grid-column field="DISCHG_DATE" title="出院日">
+    <ng-template kendoGridCellTemplate let-dataItem>
+      {{dataItem.DISCHG_DATE | date: 'yyyy/MM/dd hh:mm:ss'}}
+    </ng-template>
+  </kendo-grid-column>
+  <kendo-grid-column field="PT_TYPE" title="身份"></kendo-grid-column>
+  <kendo-grid-column field="DEPT_CODE" title="科別"></kendo-grid-column>
+  <kendo-grid-column field="REC_STATUS" title="註記"></kendo-grid-column>
+  <kendo-grid-column field="IDS_FLAG" title="呼吸"></kendo-grid-column>
+</kendo-grid>

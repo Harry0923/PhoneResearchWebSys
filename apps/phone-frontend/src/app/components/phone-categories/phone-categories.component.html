@@ -1,0 +1,37 @@
+<kendo-grid [kendoGridReactiveEditing]="createFormGroup" [kendoGridBinding]="phoneCategoryList" [sortable]="true"
+      [filterable]="true" [pageable]="true" [pageSize]="10" (save)="saveHandler($event)" (remove)="removeHandler($event)">
+      <ng-template kendoGridToolbarTemplate>
+        <button kendoGridAddCommand themeColor="info" (click)="createFormGroup">新增</button>
+      </ng-template>
+
+      <kendo-grid-column field="FOLDER_ID" title="目錄名稱">
+        <ng-template kendoGridEditTemplate let-dataItem="dataItem" let-formGroup="formGroup">
+          <kendo-dropdownlist [data]="phoneFolderList" textField="FOLDER_NAME" valueField="FOLDER_ID"
+            [valuePrimitive]="true" [formControl]="formGroup.get('FOLDER_ID')">
+          </kendo-dropdownlist>
+        </ng-template>
+        <ng-template kendoGridCellTemplate let-dataItem>
+          {{getFolder(dataItem.FOLDER_ID)?.FOLDER_NAME}}
+        </ng-template>
+      </kendo-grid-column>
+      <kendo-grid-column field="NAME" title="分類名稱"></kendo-grid-column>
+
+
+      <kendo-grid-command-column>
+        <ng-template kendoGridCellTemplate let-isNew="isNew">
+          <button kendoGridEditCommand themeColor="info">編輯</button>
+          <button kendoGridRemoveCommand themeColor="error">移除</button>
+          <button kendoGridSaveCommand themeColor="info" [disabled]="formGroup?.invalid!">儲存</button>
+          <button kendoGridCancelCommand themeColor="error">取消</button>
+        </ng-template>
+      </kendo-grid-command-column>
+    </kendo-grid>
+
+    <kendo-dialog title="訊息通知" *ngIf="openDialog" (close)="closeDialog()" [minWidth]="250" [width]="450" class="text-center">
+      <p class="m-10 text-2xl">
+        {{information}}
+      </p>
+      <kendo-dialog-actions>
+        <button kendoButton (click)="closeDialog()" themeColor="secondary">確認</button>
+      </kendo-dialog-actions>
+    </kendo-dialog>

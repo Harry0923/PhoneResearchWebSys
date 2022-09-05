@@ -1,0 +1,18 @@
+<form [formGroup]="loginFormGroup">
+  <div class="flex">
+    <div class="input-label">卡號</div>
+    <div>
+      <input type="text" class="input-content" formControlName="CardNo" placeholder="卡號">
+    </div>
+  </div>
+  <div class="flex mt-1">
+    <div class="input-label">身分證號</div>
+    <div>
+      <input type="text" class="input-content" formControlName="UidNo" placeholder="身分證號">
+    </div>
+  </div>
+  <div class="flex mt-1">
+    <button kendoButton [primary]="true" (click)="onLogin()">登入</button>
+  </div>
+</form>
+

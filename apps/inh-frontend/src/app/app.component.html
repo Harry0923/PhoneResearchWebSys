@@ -1,0 +1,44 @@
+<div class="bg-blue-900 text-white text-2xl py-2 px-4">
+  <div class="grid grid-cols-4">
+    <div>{{title}}</div>
+    <div *ngIf=" cardno !== '' ">卡號: {{cardno}}</div>
+    <div *ngIf=" idno !== '' ">身分證號: {{idno}}</div>
+    <div></div>
+  </div>
+</div>
+
+
+<div class="flex mt-1 float-right" *ngIf="isLogin">
+  <button kendoButton [primary]="true" (click)="onLogout()">登出</button>
+</div>
+
+<!--router-outlet></router-outlet-->
+<div *ngIf="isLogin">
+  <vghtc-clause></vghtc-clause>
+</div>
+
+<div class="text-lg">
+  <kendo-tabstrip class="m-4 text-lg">
+    <!--未登入時呈現-->
+    <kendo-tabstrip-tab title="登入" [selected]="true" *ngIf="!isLogin">
+      <ng-template kendoTabContent>
+        <vghtc-login></vghtc-login>
+      </ng-template>
+    </kendo-tabstrip-tab>
+    <!--已登入時呈現-->
+    <kendo-tabstrip-tab title="住院申報主檔" *ngIf="isLogin">
+      <ng-template kendoTabContent>
+        <vghtc-basic></vghtc-basic>
+      </ng-template>
+    </kendo-tabstrip-tab>
+    <kendo-tabstrip-tab title="呼吸切帳" *ngIf="isLogin">
+      <ng-template kendoTabContent>
+        <vghtc-idsnew></vghtc-idsnew>
+      </ng-template>
+    </kendo-tabstrip-tab>
+
+
+  </kendo-tabstrip>
+</div>
+
+

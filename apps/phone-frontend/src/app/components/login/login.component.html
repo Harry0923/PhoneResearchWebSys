@@ -1,0 +1,31 @@
+<main class="flex justify-center items-center h-screen bg-blue-400">
+  <form>
+    <div class="flex justify-center mb-4">
+      <img src="../../assets/logo.jpg" class="w-52 h-auto rounded-full">
+    </div>
+    <div class="flex justify-center mb-16">
+      <kendo-label text="台中榮總電話查詢系統" class="text-5xl"></kendo-label>
+    </div>
+    <div class="flex justify-center mb-8">
+      <span class="k-icon k-icon-lg k-i-user mr-3"></span>
+      <input #username type="text" placeholder="帳號" class="w-96 h-14 rounded-full text-3xl" (ngModel)="username">
+    </div>
+    <div class="flex justify-center mb-20">
+      <span class="k-icon k-icon-lg k-i-lock mr-3"></span>
+      <input #password type="password" placeholder="密碼" class="w-96 h-14 rounded-full text-3xl">
+      <span (click)="password.type = password.type === 'password'?'text':'password'"></span>
+    </div>
+    <div class="flex justify-center">
+      <button (click)="login(username.value, password.value)" kendoButton rounded="full" themeColor="info" class="w-40 h-12 text-2xl">登入</button>
+    </div>
+    <kendo-dialog title="登入失敗" *ngIf="openDialog" (close)="closeDialog()" [minWidth]="250" [width]="450" class="text-center">
+      <p class="m-10 text-2xl">
+        帳號或密碼錯誤 !
+      </p>
+      <kendo-dialog-actions>
+        <button kendoButton (click)="closeDialog()" themeColor="secondary">確認</button>
+      </kendo-dialog-actions>
+    </kendo-dialog>
+  </form>
+</main>
+
